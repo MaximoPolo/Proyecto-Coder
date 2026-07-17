@@ -1,0 +1,516 @@
+/* ============================================================
+   0KM MOTOS — styles.css
+   Generado a partir de styles.scss
+   (incluido para que index.html funcione sin instalar Sass;
+   para editar el diseño, modificá styles.scss y recompilá con
+   "sass styles.scss styles.css")
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: #17171a;
+  color: #ece8de;
+  font-family: "Work Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  line-height: 1.08;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+:focus-visible { outline: 2px solid #ff7a1a; outline-offset: 3px; }
+
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.skip-link:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  top: 16px;
+  left: 16px;
+  background: #ff7a1a;
+  color: #17171a;
+  padding: 8px 16px;
+  border-radius: 4px;
+  z-index: 200;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+}
+
+.eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #ff7a1a;
+  margin-bottom: 8px;
+  display: block;
+}
+.eyebrow--inverse { color: #17171a; }
+
+.container {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* ---------- BOTONES ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 13px 24px;
+  border-radius: 4px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn--small { padding: 9px 16px; font-size: 0.78rem; }
+
+.btn--primary { background: #ff7a1a; color: #17171a; border-color: #ff7a1a; }
+.btn--primary:hover { background: #ff9347; }
+
+.btn--outline { background: transparent; color: #ece8de; border-color: #b9b6ad; }
+.btn--outline:hover { border-color: #ece8de; }
+
+.btn--ghost { background: transparent; color: #ece8de; border-color: transparent; }
+.btn--ghost:hover { border-color: rgba(236, 232, 222, 0.12); }
+
+.btn--dark { background: #17171a; color: #ece8de; border-color: #17171a; }
+.btn--dark:hover { background: #2b2c31; }
+
+/* ---------- HEADER ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding-block: 16px;
+  background: rgba(23, 23, 26, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(236, 232, 222, 0.12);
+}
+
+.header__inner { display: flex; align-items: center; gap: 40px; }
+
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+.brand__plate {
+  background: #f2c94c;
+  color: #17171a;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.nav { margin-left: auto; }
+.nav ul { display: flex; gap: 40px; }
+.nav a { font-size: 0.92rem; color: #b9b6ad; transition: color 0.15s ease; }
+.nav a:hover { color: #ece8de; }
+.nav a[aria-current="page"] {
+  color: #ece8de;
+  border-bottom: 2px solid #ff7a1a;
+  padding-bottom: 4px;
+}
+
+/* Checkbox real (accesible por teclado) pero invisible;
+   el ícono de abajo es lo que se ve y se clickea. */
+.nav-toggle-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.nav-toggle-input:focus-visible ~ .nav-toggle-icon {
+  outline: 2px solid #ff7a1a;
+  outline-offset: 3px;
+}
+
+.nav-toggle-icon {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+.nav-toggle-icon span {
+  height: 2px;
+  background: #ece8de;
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  padding-block: 96px 140px;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(255, 122, 26, 0.12), transparent 45%),
+    repeating-linear-gradient(90deg, rgba(236, 232, 222, 0.035) 0 2px, transparent 2px 64px),
+    #17171a;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 96px;
+}
+
+.hero__copy h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  margin-block: 16px 24px;
+}
+
+.hero__lead { max-width: 46ch; color: #b9b6ad; font-size: 1.05rem; }
+
+.hero__actions { display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
+
+.hero__stats { display: flex; gap: 64px; margin: 96px 0 0; }
+.stat dd { margin-top: 8px; color: #b9b6ad; font-size: 0.85rem; }
+
+.hero__odometer-block { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
+.odometer__caption {
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #8d8d92;
+}
+
+/* Componente cuentakilómetros */
+.odometer {
+  display: inline-flex;
+  gap: 3px;
+  padding: 8px;
+  background: #2b2c31;
+  border-radius: 10px;
+  border: 1px solid rgba(236, 232, 222, 0.12);
+}
+.odometer__digit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 59.8px;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  background: #1f2024;
+  color: #f2c94c;
+  border-radius: 3px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45), inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  font-size: 1.6rem;
+  overflow: hidden;
+  position: relative;
+}
+.odometer__unit {
+  align-self: center;
+  margin-left: 6px;
+  color: #8d8d92;
+  font-family: "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+.odometer--sm { padding: 5px; }
+.odometer--sm .odometer__digit { width: 26px; height: 34px; font-size: 1rem; }
+
+/* El hero arranca en "99999" y gira hasta "00000" al cargar la
+   página: una tira vertical con los 10 dígitos que se desplaza
+   con @keyframes. Es decorativo (aria-hidden) y 100% CSS, sin JS. */
+#heroOdometer .odometer__digit { align-items: flex-start; }
+
+.odometer__digit-strip {
+  display: flex;
+  flex-direction: column;
+  animation: odometer-roll 1.6s steps(9, end) forwards;
+}
+.odometer__digit-strip span {
+  height: 59.8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes odometer-roll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-538.2px); }
+}
+
+/* ---------- SECCIONES GENERALES ---------- */
+section { padding-block: 96px; }
+
+/* Secciones que viven solas en su propia página (sin hero arriba) */
+.catalogo--page,
+.beneficios--page,
+.testimonios--page,
+.contacto--page {
+  padding-top: 140px;
+}
+
+.section-head { max-width: 56ch; margin-bottom: 64px; }
+.section-head h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+.section-head__lead { margin-top: 16px; color: #b9b6ad; }
+
+/* ---------- CATÁLOGO ---------- */
+.catalogo { background: #1f2024; }
+
+.catalogo__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.moto-card {
+  background: #2b2c31;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(236, 232, 222, 0.12);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.moto-card:hover { transform: translateY(-4px); border-color: rgba(255, 122, 26, 0.4); }
+
+.moto-card__media {
+  aspect-ratio: 4 / 3;
+  background:
+    repeating-linear-gradient(45deg, rgba(236, 232, 222, 0.04) 0 10px, transparent 10px 20px),
+    #1f2024;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.moto-card__media span {
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #8d8d92;
+}
+.moto-card__media::before {
+  content: attr(data-tag);
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #f2c94c;
+  color: #17171a;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+.moto-card__body { padding: 24px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+.moto-card__head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.moto-card__head h3 { font-size: 1.1rem; }
+.moto-card__price { font-family: "JetBrains Mono", monospace; color: #ff7a1a; font-size: 0.95rem; white-space: nowrap; }
+.moto-card__desc { color: #b9b6ad; font-size: 0.9rem; flex: 1; }
+
+.ficha {
+  display: flex;
+  gap: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(236, 232, 222, 0.12);
+  margin: 0;
+}
+.ficha div { text-align: left; }
+.ficha dt {
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #8d8d92;
+  font-size: 0.65rem;
+}
+.ficha dd { margin: 2px 0 0; font-family: "JetBrains Mono", monospace; font-size: 0.9rem; }
+
+/* ---------- BENEFICIOS ---------- */
+.beneficios__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+.beneficio__icon { width: 40px; height: 40px; color: #ff7a1a; margin-bottom: 16px; }
+.beneficio h3 { font-size: 1rem; margin-bottom: 8px; }
+.beneficio p { color: #b9b6ad; font-size: 0.92rem; }
+
+/* ---------- FINANCIACIÓN ---------- */
+.financiacion { background: #ff7a1a; color: #17171a; }
+.financiacion__inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+.financiacion__inner h2 { color: #17171a; }
+.financiacion__inner p { margin-top: 8px; max-width: 42ch; }
+
+/* ---------- TESTIMONIOS ---------- */
+.testimonios__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.testimonio {
+  margin: 0;
+  background: #1f2024;
+  border: 1px solid rgba(236, 232, 222, 0.12);
+  border-radius: 10px;
+  padding: 24px;
+}
+.testimonio blockquote { margin: 0 0 16px; font-size: 1.02rem; line-height: 1.5; }
+.testimonio figcaption {
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #8d8d92;
+}
+
+.testimonios__cta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(236, 232, 222, 0.12);
+  flex-wrap: wrap;
+}
+.testimonios__cta p {
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- CONTACTO ---------- */
+.contacto { background: #1f2024; }
+.contacto__inner { max-width: 760px; margin-inline: auto; }
+
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.form__row { display: flex; flex-direction: column; gap: 6px; }
+.form__row--full { grid-column: 1 / -1; }
+
+label {
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #b9b6ad;
+}
+
+input, select, textarea {
+  background: #2b2c31;
+  border: 1px solid rgba(236, 232, 222, 0.12);
+  border-radius: 4px;
+  color: #ece8de;
+  font-family: "Work Sans", sans-serif;
+  font-size: 0.95rem;
+  padding: 12px 14px;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid #ff7a1a; outline-offset: 3px; }
+
+.form__actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.form__note { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: #8d8d92; }
+
+/* ---------- FOOTER ---------- */
+.site-footer { border-top: 1px solid rgba(236, 232, 222, 0.12); padding-block: 64px; }
+.footer__inner { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; }
+.footer__brand p { margin-top: 8px; color: #8d8d92; font-size: 0.88rem; }
+.footer__nav { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer__nav a { color: #b9b6ad; font-size: 0.9rem; }
+.footer__nav a:hover { color: #ece8de; }
+.footer__legal {
+  grid-column: 1 / -1;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(236, 232, 222, 0.12);
+  color: #8d8d92;
+  font-size: 0.8rem;
+  max-width: 70ch;
+}
+
+/* ============================================================
+   RESPONSIVE — tablet (≤900px) y mobile (≤600px)
+   ============================================================ */
+@media (max-width: 900px) {
+  .hero__inner { grid-template-columns: 1fr; gap: 64px; }
+  .hero__odometer-block { display: none; }
+
+  .nav {
+    position: fixed;
+    inset: 64px 0 0 0;
+    height: calc(100vh - 64px);
+    z-index: 95;
+    background: #17171a;
+    padding: 40px 24px;
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  }
+  .nav ul { flex-direction: column; gap: 24px; }
+  .nav a { font-size: 1.2rem; }
+
+  .nav-toggle-icon { display: flex; }
+  .nav-toggle-input:checked ~ .nav { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav-toggle-input:checked ~ .nav-toggle-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle-input:checked ~ .nav-toggle-icon span:nth-child(2) { opacity: 0; }
+  .nav-toggle-input:checked ~ .nav-toggle-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .catalogo__grid { grid-template-columns: repeat(2, 1fr); }
+  .beneficios__grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonios__grid { grid-template-columns: 1fr; }
+  .footer__inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .header__cta { display: none; }
+  .hero__stats { gap: 24px; flex-wrap: wrap; }
+  .catalogo__grid { grid-template-columns: 1fr; }
+  .beneficios__grid { grid-template-columns: 1fr; }
+  .form { grid-template-columns: 1fr; }
+}

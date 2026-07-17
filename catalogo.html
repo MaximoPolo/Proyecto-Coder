@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de motos — 0KM Motos</title>
+<meta name="description" content="Catálogo de motos 0KM: urbanas, naked, enduro y touring, con ficha técnica y precio orientativo.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="./estilos/styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header__inner">
+    <a href="index.html" class="brand">
+      <span class="brand__plate">0KM</span>
+      <span class="brand__name">Motos</span>
+    </a>
+
+    <input type="checkbox" id="navToggle" class="nav-toggle-input" aria-label="Abrir menú de navegación">
+
+    <nav class="nav" id="nav">
+      <ul>
+        <li><a href="catalogo.html" aria-current="page">Catálogo</a></li>
+        <li><a href="beneficios.html">Por qué elegirnos</a></li>
+        <li><a href="beneficios.html#financiacion">Financiación</a></li>
+        <li><a href="testimonios.html">Testimonios</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <a href="contacto.html" class="btn btn--ghost header__cta">Reservar test ride</a>
+
+    <label for="navToggle" class="nav-toggle-icon" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </label>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <!-- CATÁLOGO -->
+  <section class="catalogo catalogo--page" id="catalogo">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">Catálogo</p>
+        <h2>Una moto para cada ruta.</h2>
+        <p class="section-head__lead">Cuatro categorías, fichas técnicas reales. Tocá “Consultar” y coordinamos tu test ride.</p>
+      </header>
+
+      <div class="catalogo__grid">
+
+        <article class="moto-card">
+          <div class="moto-card__media" data-tag="Urbana">
+            <span>Foto del modelo</span>
+          </div>
+          <div class="moto-card__body">
+            <div class="moto-card__head">
+              <h3>Urbana 150i</h3>
+              <p class="moto-card__price">USD 2.300</p>
+            </div>
+            <p class="moto-card__desc">Bajo consumo y manejo liviano para moverte todos los días por la ciudad.</p>
+            <dl class="ficha">
+              <div><dt>Cil.</dt><dd>149 cc</dd></div>
+              <div><dt>Pot.</dt><dd>13 HP</dd></div>
+              <div><dt>Peso</dt><dd>118 kg</dd></div>
+            </dl>
+            <a href="contacto.html" class="btn btn--small">Consultar</a>
+          </div>
+        </article>
+
+        <article class="moto-card">
+          <div class="moto-card__media" data-tag="Naked">
+            <span>Foto del modelo</span>
+          </div>
+          <div class="moto-card__body">
+            <div class="moto-card__head">
+              <h3>Naked 400i</h3>
+              <p class="moto-card__price">USD 5.400</p>
+            </div>
+            <p class="moto-card__desc">Posición erguida, frenos a disco en las dos ruedas y respuesta inmediata.</p>
+            <dl class="ficha">
+              <div><dt>Cil.</dt><dd>398 cc</dd></div>
+              <div><dt>Pot.</dt><dd>44 HP</dd></div>
+              <div><dt>Peso</dt><dd>168 kg</dd></div>
+            </dl>
+            <a href="contacto.html" class="btn btn--small">Consultar</a>
+          </div>
+        </article>
+
+        <article class="moto-card">
+          <div class="moto-card__media" data-tag="Enduro">
+            <span>Foto del modelo</span>
+          </div>
+          <div class="moto-card__body">
+            <div class="moto-card__head">
+              <h3>Enduro 300X</h3>
+              <p class="moto-card__price">USD 6.100</p>
+            </div>
+            <p class="moto-card__desc">Suspensión larga y neumáticos mixtos para asfalto y tierra, sin escalas.</p>
+            <dl class="ficha">
+              <div><dt>Cil.</dt><dd>293 cc</dd></div>
+              <div><dt>Pot.</dt><dd>27 HP</dd></div>
+              <div><dt>Peso</dt><dd>142 kg</dd></div>
+            </dl>
+            <a href="contacto.html" class="btn btn--small">Consultar</a>
+          </div>
+        </article>
+
+        <article class="moto-card">
+          <div class="moto-card__media" data-tag="Touring">
+            <span>Foto del modelo</span>
+          </div>
+          <div class="moto-card__body">
+            <div class="moto-card__head">
+              <h3>Touring 650 ABS</h3>
+              <p class="moto-card__price">USD 8.900</p>
+            </div>
+            <p class="moto-card__desc">Parabrisas regulable y baúl integrado, pensada para rutas largas.</p>
+            <dl class="ficha">
+              <div><dt>Cil.</dt><dd>649 cc</dd></div>
+              <div><dt>Pot.</dt><dd>61 HP</dd></div>
+              <div><dt>Peso</dt><dd>211 kg</dd></div>
+            </dl>
+            <a href="contacto.html" class="btn btn--small">Consultar</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a href="index.html" class="brand">
+        <span class="brand__plate">0KM</span>
+        <span class="brand__name">Motos</span>
+      </a>
+      <p>Olivos, Buenos Aires, Argentina.</p>
+    </div>
+
+    <nav class="footer__nav">
+      <a href="catalogo.html">Catálogo</a>
+      <a href="beneficios.html">Por qué elegirnos</a>
+      <a href="beneficios.html#financiacion">Financiación</a>
+      <a href="testimonios.html">Testimonios</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+
+    <p class="footer__legal">
+      Los precios y planes de financiación son orientativos y están sujetos a cambios sin previo aviso.
+      Imágenes ilustrativas. © 2026 0KM Motos.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

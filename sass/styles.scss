@@ -1,0 +1,810 @@
+// ============================================================
+// 0KM MOTOS — styles.scss
+// Compilar con Dart Sass: sass styles.scss styles.css
+// (este repo ya incluye styles.css compilado para previsualizar
+// el sitio sin instalar nada)
+// ============================================================
+
+@use "sass:color";
+@use "sass:map";
+
+// ------------------------------------------------------------
+// 1. VARIABLES — paleta inspirada en asfalto, luces de giro
+//    y el cuentakilómetros que marca "0" en una moto nueva
+// ------------------------------------------------------------
+$color-asphalt:      #17171a;
+$color-asphalt-soft: #1f2024;
+$color-concrete:     #2b2c31;
+$color-paper:         #ece8de;
+$color-paper-dim:    #b9b6ad;
+$color-amber:        #ff7a1a;
+$color-plate:        #f2c94c;
+$color-grey:         #8d8d92;
+$color-line:          rgba(#ece8de, 0.12);
+$color-line-dark:     rgba(#17171a, 0.12);
+
+$font-display: "Oswald", sans-serif;
+$font-body:    "Work Sans", sans-serif;
+$font-mono:    "JetBrains Mono", monospace;
+
+$space-1: 8px;
+$space-2: 16px;
+$space-3: 24px;
+$space-4: 40px;
+$space-5: 64px;
+$space-6: 96px;
+$space-7: 140px;
+
+$radius-sm: 4px;
+$radius-md: 10px;
+$container-max: 1180px;
+
+$bp-tablet: 900px;
+$bp-mobile: 600px;
+
+// ------------------------------------------------------------
+// 2. MIXINS Y FUNCIONES
+// ------------------------------------------------------------
+@mixin container {
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: $space-3;
+}
+
+@mixin mq($bp) {
+  @if $bp == tablet {
+    @media (max-width: $bp-tablet) { @content; }
+  } @else if $bp == mobile {
+    @media (max-width: $bp-mobile) { @content; }
+  }
+}
+
+@mixin eyebrow {
+  font-family: $font-mono;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+@mixin focus-ring {
+  outline: 2px solid $color-amber;
+  outline-offset: 3px;
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+// Caja de dígito al estilo cuentakilómetros mecánico
+@mixin odometer-digit($size, $bg, $fg) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $size;
+  height: $size * 1.3;
+  font-family: $font-mono;
+  font-weight: 700;
+  background: $bg;
+  color: $fg;
+  border-radius: 3px;
+  box-shadow: inset 0 2px 4px rgba(#000, 0.45), inset 0 -1px 0 rgba(#fff, 0.05);
+}
+
+// ------------------------------------------------------------
+// 3. RESET Y BASE
+// ------------------------------------------------------------
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: $color-asphalt;
+  color: $color-paper;
+  font-family: $font-body;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: $font-display;
+  font-weight: 600;
+  line-height: 1.08;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+p { margin: 0; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img { max-width: 100%; display: block; }
+
+ul { list-style: none; margin: 0; padding: 0; }
+
+:focus-visible { @include focus-ring; }
+
+.skip-link {
+  @include visually-hidden;
+  &:focus {
+    position: fixed;
+    width: auto;
+    height: auto;
+    top: $space-2;
+    left: $space-2;
+    background: $color-amber;
+    color: $color-asphalt;
+    padding: $space-1 $space-2;
+    border-radius: $radius-sm;
+    z-index: 200;
+    font-family: $font-mono;
+    font-size: 0.85rem;
+  }
+}
+
+.eyebrow {
+  @include eyebrow;
+  color: $color-amber;
+  margin-bottom: $space-1;
+  display: block;
+
+  &--inverse { color: $color-asphalt; }
+}
+
+.container { @include container; }
+
+// ------------------------------------------------------------
+// 4. BOTONES — generados con un mapa Sass
+// ------------------------------------------------------------
+$buttons: (
+  "primary": (bg: $color-amber, fg: $color-asphalt, border: $color-amber),
+  "outline": (bg: transparent, fg: $color-paper, border: $color-paper-dim),
+  "ghost":   (bg: transparent, fg: $color-paper, border: transparent),
+  "dark":    (bg: $color-asphalt, fg: $color-paper, border: $color-asphalt),
+);
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  font-family: $font-mono;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 13px 24px;
+  border-radius: $radius-sm;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+
+  &:hover { transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+
+  &--small {
+    padding: 9px 16px;
+    font-size: 0.78rem;
+  }
+}
+
+@each $name, $props in $buttons {
+  .btn--#{$name} {
+    background: map.get($props, bg);
+    color: map.get($props, fg);
+    border-color: map.get($props, border);
+
+    @if $name == "primary" {
+      &:hover { background: color.adjust($color-amber, $lightness: 8%); }
+    } @else if $name == "outline" {
+      &:hover { border-color: $color-paper; }
+    } @else if $name == "ghost" {
+      &:hover { border-color: $color-line; }
+    } @else if $name == "dark" {
+      &:hover { background: color.adjust($color-asphalt, $lightness: 10%); }
+    }
+  }
+}
+
+// ------------------------------------------------------------
+// 5. HEADER
+// ------------------------------------------------------------
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding-block: $space-2;
+  background: rgba($color-asphalt, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid $color-line;
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: $font-display;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+
+  &__plate {
+    background: $color-plate;
+    color: $color-asphalt;
+    font-family: $font-mono;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+}
+
+.nav {
+  margin-left: auto;
+  ul { display: flex; gap: $space-4; }
+  a {
+    font-size: 0.92rem;
+    color: $color-paper-dim;
+    transition: color 0.15s ease;
+    &:hover { color: $color-paper; }
+
+    &[aria-current="page"] {
+      color: $color-paper;
+      border-bottom: 2px solid $color-amber;
+      padding-bottom: 4px;
+    }
+  }
+
+  @include mq(tablet) {
+    position: fixed;
+    inset: 64px 0 0 0;
+    height: calc(100vh - 64px);
+    z-index: 95;
+    background: $color-asphalt;
+    padding: $space-4 $space-3;
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+
+    ul { flex-direction: column; gap: $space-3; }
+    a { font-size: 1.2rem; }
+  }
+}
+
+.header__cta {
+  @include mq(mobile) { display: none; }
+}
+
+// Checkbox real, accesible por teclado, pero invisible:
+// el ícono de abajo es el que se ve y se hace click.
+.nav-toggle-input {
+  @include visually-hidden;
+
+  &:focus-visible ~ .nav-toggle-icon {
+    @include focus-ring;
+  }
+}
+
+.nav-toggle-icon {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+
+  span {
+    height: 2px;
+    background: $color-paper;
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  @include mq(tablet) { display: flex; }
+}
+
+// Estados controlados por el :checked del input hermano —
+// nada de esto necesita JavaScript.
+@include mq(tablet) {
+  .nav-toggle-input:checked ~ .nav {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-toggle-input:checked ~ .nav-toggle-icon span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle-input:checked ~ .nav-toggle-icon span:nth-child(2) { opacity: 0; }
+  .nav-toggle-input:checked ~ .nav-toggle-icon span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+
+// ------------------------------------------------------------
+// 6. HERO
+// ------------------------------------------------------------
+.hero {
+  padding-block: $space-6 $space-7;
+  background:
+    radial-gradient(circle at 85% 15%, rgba($color-amber, 0.12), transparent 45%),
+    repeating-linear-gradient(90deg, rgba($color-paper, 0.035) 0 2px, transparent 2px 64px),
+    $color-asphalt;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: $space-6;
+
+  @include mq(tablet) {
+    grid-template-columns: 1fr;
+    gap: $space-5;
+  }
+}
+
+.hero__copy h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  margin-block: $space-2 $space-3;
+}
+
+.hero__lead {
+  max-width: 46ch;
+  color: $color-paper-dim;
+  font-size: 1.05rem;
+}
+
+.hero__actions {
+  display: flex;
+  gap: $space-2;
+  margin-top: $space-4;
+  flex-wrap: wrap;
+}
+
+.hero__stats {
+  display: flex;
+  gap: $space-5;
+  margin: $space-6 0 0;
+
+  @include mq(mobile) { gap: $space-3; flex-wrap: wrap; }
+}
+
+.stat {
+  dd {
+    margin-top: $space-1;
+    color: $color-paper-dim;
+    font-size: 0.85rem;
+  }
+}
+
+.hero__odometer-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2;
+
+  @include mq(tablet) { display: none; }
+}
+
+.odometer__caption {
+  @include eyebrow;
+  color: $color-grey;
+}
+
+// Componente cuentakilómetros, reutilizado en hero y stats
+$hero-digit-size: 46px;
+$hero-digit-h: $hero-digit-size * 1.3;
+
+.odometer {
+  display: inline-flex;
+  gap: 3px;
+  padding: 8px;
+  background: $color-concrete;
+  border-radius: $radius-md;
+  border: 1px solid $color-line;
+
+  &__digit {
+    @include odometer-digit($hero-digit-size, $color-asphalt-soft, $color-plate);
+    font-size: 1.6rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__unit {
+    align-self: center;
+    margin-left: 6px;
+    color: $color-grey;
+    font-family: $font-mono;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  &--sm {
+    padding: 5px;
+    .odometer__digit {
+      width: 26px;
+      height: 34px;
+      font-size: 1rem;
+    }
+  }
+}
+
+// El hero arranca en "99999" y gira hasta "00000" al cargar la
+// página: una tira vertical con los 10 dígitos que se desplaza
+// con @keyframes. Es decorativo (aria-hidden) y 100% CSS.
+#heroOdometer .odometer__digit {
+  align-items: flex-start;
+}
+
+.odometer__digit-strip {
+  display: flex;
+  flex-direction: column;
+  animation: odometer-roll 1.6s steps(9, end) forwards;
+
+  span {
+    height: $hero-digit-h;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@keyframes odometer-roll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(#{-$hero-digit-h * 9}); }
+}
+
+// ------------------------------------------------------------
+// 7. SECCIONES GENERALES
+// ------------------------------------------------------------
+section { padding-block: $space-6; }
+
+// Secciones que viven solas en su propia página (sin hero arriba)
+// necesitan más aire para no quedar pegadas al header.
+.catalogo--page,
+.beneficios--page,
+.testimonios--page,
+.contacto--page {
+  padding-top: $space-7;
+}
+
+.section-head {
+  max-width: 56ch;
+  margin-bottom: $space-5;
+
+  h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+
+  &__lead {
+    margin-top: $space-2;
+    color: $color-paper-dim;
+  }
+}
+
+// ------------------------------------------------------------
+// 8. CATÁLOGO
+// ------------------------------------------------------------
+.catalogo { background: $color-asphalt-soft; }
+
+.catalogo__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $space-3;
+
+  @include mq(tablet) { grid-template-columns: repeat(2, 1fr); }
+  @include mq(mobile) { grid-template-columns: 1fr; }
+}
+
+.moto-card {
+  background: $color-concrete;
+  border-radius: $radius-md;
+  overflow: hidden;
+  border: 1px solid $color-line;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($color-amber, 0.4);
+  }
+
+  &__media {
+    aspect-ratio: 4 / 3;
+    background:
+      repeating-linear-gradient(45deg, rgba($color-paper, 0.04) 0 10px, transparent 10px 20px),
+      $color-asphalt-soft;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      @include eyebrow;
+      color: $color-grey;
+    }
+
+    &::before {
+      content: attr(data-tag);
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: $color-plate;
+      color: $color-asphalt;
+      font-family: $font-mono;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+  }
+
+  &__body {
+    padding: $space-3;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+    flex: 1;
+  }
+
+  &__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: $space-2;
+
+    h3 { font-size: 1.1rem; }
+  }
+
+  &__price {
+    font-family: $font-mono;
+    color: $color-amber;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  &__desc {
+    color: $color-paper-dim;
+    font-size: 0.9rem;
+    flex: 1;
+  }
+}
+
+.ficha {
+  display: flex;
+  gap: $space-3;
+  padding-top: $space-2;
+  border-top: 1px solid $color-line;
+  margin: 0;
+
+  div { text-align: left; }
+
+  dt {
+    @include eyebrow;
+    color: $color-grey;
+    font-size: 0.65rem;
+  }
+
+  dd {
+    margin: 2px 0 0;
+    font-family: $font-mono;
+    font-size: 0.9rem;
+  }
+}
+
+// ------------------------------------------------------------
+// 9. BENEFICIOS
+// ------------------------------------------------------------
+.beneficios__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $space-4;
+
+  @include mq(tablet) { grid-template-columns: repeat(2, 1fr); }
+  @include mq(mobile) { grid-template-columns: 1fr; }
+}
+
+.beneficio {
+  &__icon {
+    width: 40px;
+    height: 40px;
+    color: $color-amber;
+    margin-bottom: $space-2;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin-bottom: $space-1;
+  }
+
+  p {
+    color: $color-paper-dim;
+    font-size: 0.92rem;
+  }
+}
+
+// ------------------------------------------------------------
+// 10. FINANCIACIÓN (banner)
+// ------------------------------------------------------------
+.financiacion {
+  background: $color-amber;
+  color: $color-asphalt;
+}
+
+.financiacion__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  flex-wrap: wrap;
+
+  h2 { color: $color-asphalt; }
+
+  p { margin-top: $space-1; max-width: 42ch; }
+}
+
+// ------------------------------------------------------------
+// 11. TESTIMONIOS
+// ------------------------------------------------------------
+.testimonios__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-3;
+
+  @include mq(tablet) { grid-template-columns: 1fr; }
+}
+
+.testimonio {
+  margin: 0;
+  background: $color-asphalt-soft;
+  border: 1px solid $color-line;
+  border-radius: $radius-md;
+  padding: $space-3;
+
+  blockquote {
+    margin: 0 0 $space-2;
+    font-size: 1.02rem;
+    line-height: 1.5;
+  }
+
+  figcaption {
+    @include eyebrow;
+    color: $color-grey;
+  }
+}
+
+.testimonios__cta {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  margin-top: $space-5;
+  padding-top: $space-4;
+  border-top: 1px solid $color-line;
+  flex-wrap: wrap;
+
+  p {
+    font-family: $font-display;
+    text-transform: uppercase;
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+  }
+}
+
+// ------------------------------------------------------------
+// 12. CONTACTO
+// ------------------------------------------------------------
+.contacto { background: $color-asphalt-soft; }
+
+.contacto__inner { max-width: 760px; margin-inline: auto; }
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-3;
+
+  @include mq(mobile) { grid-template-columns: 1fr; }
+}
+
+.form__row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &--full { grid-column: 1 / -1; }
+}
+
+label {
+  @include eyebrow;
+  color: $color-paper-dim;
+}
+
+input, select, textarea {
+  background: $color-concrete;
+  border: 1px solid $color-line;
+  border-radius: $radius-sm;
+  color: $color-paper;
+  font-family: $font-body;
+  font-size: 0.95rem;
+  padding: 12px 14px;
+
+  &:focus { @include focus-ring; }
+}
+
+.form__actions {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-wrap: wrap;
+}
+
+.form__note {
+  font-family: $font-mono;
+  font-size: 0.85rem;
+  color: $color-grey;
+}
+
+// ------------------------------------------------------------
+// 13. FOOTER
+// ------------------------------------------------------------
+.site-footer {
+  border-top: 1px solid $color-line;
+  padding-block: $space-5;
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: $space-4;
+  align-items: start;
+
+  @include mq(tablet) { grid-template-columns: 1fr; }
+}
+
+.footer__brand p {
+  margin-top: $space-1;
+  color: $color-grey;
+  font-size: 0.88rem;
+}
+
+.footer__nav {
+  display: flex;
+  gap: $space-3;
+  flex-wrap: wrap;
+
+  a {
+    color: $color-paper-dim;
+    font-size: 0.9rem;
+    &:hover { color: $color-paper; }
+  }
+}
+
+.footer__legal {
+  grid-column: 1 / -1;
+  margin-top: $space-4;
+  padding-top: $space-3;
+  border-top: 1px solid $color-line;
+  color: $color-grey;
+  font-size: 0.8rem;
+  max-width: 70ch;
+}
